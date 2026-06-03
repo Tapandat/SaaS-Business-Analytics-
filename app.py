@@ -275,9 +275,11 @@ elif auth_option == "Register":
 # GOOGLE LOGIN
 # ==================================================
 
-elif auth_option == "Google Login":
+# ==================================================
+# GOOGLE LOGIN
+# ==================================================
 
-   
+elif auth_option == "Google Login":
 
     st.subheader(
         "Google Sign In"
@@ -320,22 +322,32 @@ elif auth_option == "Google Login":
         key="google_login"
     )
 
-  if result:
+    if result:
 
-    token = result["token"]
+        try:
 
-    st.session_state.logged_in = True
+            token = result["token"]
 
-    st.session_state.user_email = (
-        token.get("email", "Google User")
-    )
+            st.session_state.logged_in = True
 
-    st.success(
-        "Google Login Successful"
-    )
+            st.session_state.user_email = (
+                token.get(
+                    "email",
+                    "Google User"
+                )
+            )
 
-    st.rerun()
+            st.success(
+                "Google Login Successful"
+            )
 
+            st.rerun()
+
+        except Exception as e:
+
+            st.error(
+                f"Google OAuth Error: {e}"
+            )
 
 # ==================================================
 # SIDEBAR
