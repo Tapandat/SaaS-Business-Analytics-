@@ -4,6 +4,11 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import sqlite3
+st.set_page_config(
+    page_title="SaaS Business Analytics Platform",
+    page_icon="📊",
+    layout="wide"
+)
 
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
@@ -142,11 +147,7 @@ st.markdown(
 """,
 unsafe_allow_html=True
 )
-st.set_page_config(
-    page_title="SaaS Business Analytics Platform",
-    page_icon="📊",
-    layout="wide"
-)
+
 st.markdown(
 """
 <div class='sub-title'>
@@ -276,7 +277,7 @@ elif auth_option == "Register":
 
 elif auth_option == "Google Login":
 
-    from streamlit_oauth import OAuth2Component
+   
 
     st.subheader(
         "Google Sign In"
@@ -319,19 +320,21 @@ elif auth_option == "Google Login":
         key="google_login"
     )
 
-    if result:
+  if result:
 
-        st.session_state.logged_in = True
+    token = result["token"]
 
-        st.session_state.user_email = (
-            "Google User"
-        )
+    st.session_state.logged_in = True
 
-        st.success(
-            "Google Login Successful"
-        )
+    st.session_state.user_email = (
+        token.get("email", "Google User")
+    )
 
-        st.rerun()
+    st.success(
+        "Google Login Successful"
+    )
+
+    st.rerun()
 
 
 # ==================================================
