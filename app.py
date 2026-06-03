@@ -278,7 +278,6 @@ elif auth_option == "Register":
 # ==================================================
 # GOOGLE LOGIN
 # ==================================================
-
 elif auth_option == "Google Login":
 
     st.subheader(
@@ -314,31 +313,30 @@ elif auth_option == "Google Login":
         REVOKE_URL
     )
 
-   result = oauth2.authorize_button(
-    name="Continue with Google",
-    redirect_uri=
-    "https://jebqftjqbrdyz3xwhpn74q.streamlit.app/component/streamlit_oauth.authorize_button/index.html",
-    scope="openid email profile",
-    key="google_login"
-)
-
-st.write(
-    "OAuth Result:",
-    result
-)
-
-if result:
-
-    st.success(
-        "OAuth callback received"
+    result = oauth2.authorize_button(
+        name="Continue with Google",
+        redirect_uri=
+        "https://jebqftjqbrdyz3xwhpn74q.streamlit.app/component/streamlit_oauth.authorize_button/index.html",
+        scope="openid email profile",
+        key="google_login"
     )
 
     st.write(
+        "OAuth Result:",
         result
     )
 
-    st.stop()
+    if result:
 
+        st.success(
+            "OAuth callback received"
+        )
+
+        st.write(
+            result
+        )
+
+        st.stop()
 
 
 # ==================================================
