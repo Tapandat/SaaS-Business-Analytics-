@@ -314,7 +314,7 @@ elif auth_option == "Google Login":
         REVOKE_URL
     )
 
-   result =oauth2.authorize_button(
+   result = oauth2.authorize_button(
     name="Continue with Google",
     redirect_uri=
     "https://jebqftjqbrdyz3xwhpn74q.streamlit.app/component/streamlit_oauth.authorize_button/index.html",
