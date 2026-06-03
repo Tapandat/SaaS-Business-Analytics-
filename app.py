@@ -314,40 +314,32 @@ elif auth_option == "Google Login":
         REVOKE_URL
     )
 
-    result = oauth2.authorize_button(
-        name="Continue with Google",
-        redirect_uri=
-        "https://jebqftjqbrdyz3xwhpn74q.streamlit.app/component/streamlit_oauth.authorize_button/index.html",
-        scope="openid email profile",
-        key="google_login"
+   result =oauth2.authorize_button(
+    name="Continue with Google",
+    redirect_uri=
+    "https://jebqftjqbrdyz3xwhpn74q.streamlit.app/component/streamlit_oauth.authorize_button/index.html",
+    scope="openid email profile",
+    key="google_login"
+)
+
+st.write(
+    "OAuth Result:",
+    result
+)
+
+if result:
+
+    st.success(
+        "OAuth callback received"
     )
 
-    if result:
+    st.write(
+        result
+    )
 
-        try:
+    st.stop()
 
-            token = result["token"]
 
-            st.session_state.logged_in = True
-
-            st.session_state.user_email = (
-                token.get(
-                    "email",
-                    "Google User"
-                )
-            )
-
-            st.success(
-                "Google Login Successful"
-            )
-
-            st.rerun()
-
-        except Exception as e:
-
-            st.error(
-                f"Google OAuth Error: {e}"
-            )
 
 # ==================================================
 # SIDEBAR
@@ -1847,4 +1839,4 @@ if uploaded_file is not None:
         st.error(
             f"Application Error: {e}"
         )
-        pdf_buffer = create_pdf_report(...)
+      
