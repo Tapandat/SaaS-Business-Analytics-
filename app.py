@@ -9,6 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LinearRegression
 from sklearn.cluster import KMeans
+from streamlit_oauth import OAuth2Component
 
 from sklearn.preprocessing import (
     LabelEncoder,
@@ -275,20 +276,62 @@ elif auth_option == "Register":
 
 elif auth_option == "Google Login":
 
+    from streamlit_oauth import OAuth2Component
+
     st.subheader(
-        "Google Authentication"
+        "Google Sign In"
     )
 
-    st.info(
-        """
-        Google OAuth can be enabled
-        during deployment.
-        """
+    CLIENT_ID = st.secrets[
+        "GOOGLE_CLIENT_ID"
+    ]
+
+    CLIENT_SECRET = st.secrets[
+        "GOOGLE_CLIENT_SECRET"
+    ]
+
+    AUTHORIZE_URL = (
+        "https://accounts.google.com/o/oauth2/auth"
     )
 
-    st.button(
-        "Continue with Google"
+    TOKEN_URL = (
+        "https://oauth2.googleapis.com/token"
     )
+
+    REVOKE_URL = (
+        "https://oauth2.googleapis.com/revoke"
+    )
+
+    oauth2 = OAuth2Component(
+        CLIENT_ID,
+        CLIENT_SECRET,
+        AUTHORIZE_URL,
+        TOKEN_URL,
+        TOKEN_URL,
+        REVOKE_URL
+    )
+
+    result = oauth2.authorize_button(
+        name="Continue with Google",
+        redirect_uri=
+        "https://jebqftjqbrdyz3xwhpn74q.streamlit.app/component/streamlit_oauth.authorize_button/index.html",
+        scope="openid email profile",
+        key="google_login"
+    )
+
+    if result:
+
+        st.session_state.logged_in = True
+
+        st.session_state.user_email = (
+            "Google User"
+        )
+
+        st.success(
+            "Google Login Successful"
+        )
+
+        st.rerun()
 
 
 # ==================================================
